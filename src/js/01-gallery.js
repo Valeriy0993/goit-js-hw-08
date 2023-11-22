@@ -27,7 +27,6 @@ function renderGallery() {
 
 renderGallery();
 
-// Використовуйте SimpleLightbox для створення галереї
 const lightbox = new SimpleLightbox('.gallery a', {
   captions: true,
 });
