@@ -1,3 +1,5 @@
+import throttle from 'lodash.throttle';
+
 function loadVimeoPlayerScript(callback) {
   const script = document.createElement('script');
   script.src = 'https://player.vimeo.com/api/player.js';
@@ -32,10 +34,14 @@ document.addEventListener('DOMContentLoaded', () => {
 
     player.on('timeupdate', data => {
       const currentTime = data.seconds;
-      localStorage.setItem('videoplayer-current-time', currentTime);
+      updateStoredTime(currentTime);
     });
 
     const savedTime = getSavedTime();
     setPlayerTime(savedTime);
+
+    const updateStoredTime = throttle(currentTime => {
+      localStorage.setItem('videoplayer-current-time', currentTime);
+    }, 1000);
   });
 });
